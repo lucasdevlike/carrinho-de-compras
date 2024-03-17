@@ -1,6 +1,10 @@
 <?php
-require 'Cart.php';
-require 'Product.php';
+
+use app\library\Cart;
+use app\library\Product;
+
+require '../vendor/autoload.php';
+
 session_start();
 
 
@@ -25,7 +29,7 @@ if (isset($_GET['id'])) {
 }
 if (isset($_SESSION['cart'])) {
 
-    var_dump($_SESSION['cart']);
+    // var_dump($_SESSION['cart']);
 }
 
 ?>
@@ -36,7 +40,7 @@ if (isset($_SESSION['cart'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Site Title</title>
+    <title>Carrinho de Compras com checkout stripe</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -46,10 +50,16 @@ if (isset($_SESSION['cart'])) {
 
     <p><a href="/mycart.php">Go to cart</a></p>
     <ul>
-        <li>geladeira R$1.000,00<a href="?id=1">Adicionar ao Carrinho</a></li>
+        <?php foreach($products as $product): ?>
+        <li>
+            <?=ucfirst($product['name']);?> | R$<?= number_format($product['price'], 2, ',', '.')?> | <a
+                href="?id=<?=$product['id']?>">Adicionar ao carrinho</a>
+        </li>
+        <?php endforeach; ?>
+        <!-- <li>geladeira R$1.000,00<a href="?id=1">Adicionar ao Carrinho</a></li>
         <li>mouse $100,00<a href="?id=2">Adicionar ao Carrinho</a></li>
         <li>teclado $10,00<a href="?id=3">Adicionar ao Carrinho</a></li>
-        <li>monitor R$5.000,00<a href="?id=4">Adicionar ao Carrinho</a></li>
+        <li>monitor R$5.000,00<a href="?id=4">Adicionar ao Carrinho</a></li> -->
     </ul>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -1,7 +1,8 @@
 <?php
 
-require 'Product.php';
-require 'Cart.php';
+use app\library\Cart;
+
+require '../vendor/autoload.php';
 
 session_start();
 
@@ -39,8 +40,11 @@ if (isset($_GET['id'])) {
             <a href="?id=<?= $product->getId(); ?>">Remover produto</a>
         </li>
         <?php endforeach; ?>
-        <li><b>Total R$<?php echo number_format($cart->getTotal(), 2, ',', '.'); ?></b></li>
+        <li><b>Total R$<?php echo number_format($cart->getTotal(), 2, ',', '.'); ?></b> <a href="/">Continuar
+                comprando</a></li>
     </ul>
+    <hr>
+    <a href="checkout.php">Checkout</a>
 </body>
 
 </html>
